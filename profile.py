@@ -7,7 +7,7 @@ import geni.portal as portal
 import geni.rspec.pg as rspec
 import geni.rspec.emulab
 
-IMAGE = "urn:publicid:IDN+cloudlab.umass.edu+image+containernetwork-PG0:mass-openwhisk"
+IMAGE = "urn:publicid:IDN+cloudlab.umass.edu+image+containernetwork-PG0:k8s-overlaybd"
 
 pc = portal.Context()
 
@@ -17,13 +17,13 @@ pc.defineParameter("X", "Number of containers per physical node",
 pc.defineParameter("cores",
                    "Invoker cpu cores",
                    portal.ParameterType.INTEGER,
-                   2,
+                   1,
                    longDescription="Invoker cpu cores.")
 
 pc.defineParameter("memory",
                    "Invoker memory",
                    portal.ParameterType.INTEGER,
-                   6144,
+                   5120,
                    longDescription="Invoker memory.")
 
 pc.defineParameter("bandwidth",
