@@ -122,7 +122,7 @@ setup_invoker $1
 sudo wondershaper -a eth0 -d $2 -u $2
 
 # sudo agent 30000 &
-sudo p2p -c $INSTALL_DIR/dadip2p.yaml $1
+sudo p2p -c $INSTALL_DIR/install/dadip2p.yaml $1 &
 sudo systemctl restart overlaybd-tcmu
 
 exit 0
