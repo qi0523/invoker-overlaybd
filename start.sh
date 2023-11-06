@@ -18,7 +18,7 @@ sudo sed -i "4a 127.0.0.1 $HOST_NAME" /etc/hosts
 sudo apt install -y apparmor apparmor-utils
 ## cni plugins TODO:
 pushd $INSTALL_DIR/install
-sudo wget https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
+# sudo wget https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
 sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
 popd
 
@@ -119,7 +119,7 @@ coproc nc { nc -l $HOST_ETH0_IP $INVOKER_PORT; }
 
 setup_invoker $1
 
-sudo wondershaper -a eth0 -d $2 -u $2
+# sudo wondershaper -a eth0 -d $2 -u $2
 
 # sudo agent 30000 &
 sudo p2p -c $INSTALL_DIR/install/dadip2p.yaml $1 &
