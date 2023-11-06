@@ -123,6 +123,9 @@ setup_invoker $1
 
 # sudo agent 30000 &
 sudo p2p -c $INSTALL_DIR/install/dadip2p.yaml $1 &
+
+sleep 3
+
 sudo systemctl restart overlaybd-tcmu
 
 exit 0
