@@ -128,4 +128,8 @@ sleep 3
 
 sudo systemctl restart overlaybd-tcmu
 
+sudo sed -i "s/MASTERIP/$1/" /etc/overlaybd-snapshotter/config.json
+
+sudo systemctl restart overlaybd-snapshotter
+
 exit 0
