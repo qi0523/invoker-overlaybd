@@ -7,7 +7,7 @@ import geni.portal as portal
 import geni.rspec.pg as rspec
 import geni.rspec.emulab
 
-IMAGE = "urn:publicid:IDN+cloudlab.umass.edu+image+containernetwork-PG0:k8s-overlaybd"
+IMAGE = "urn:publicid:IDN+cloudlab.umass.edu+image+containernetwork-PG0:k8s-bd-gc"
 
 pc = portal.Context()
 
