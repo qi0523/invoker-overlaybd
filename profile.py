@@ -42,6 +42,11 @@ pc.defineParameter("masterIP",
                    portal.ParameterType.STRING, 
                    "172.17.1.1")
 
+pc.defineParameter("registryIP", 
+                   "Registry ip address",
+                   portal.ParameterType.STRING, 
+                   "172.17.1.1")
+
 pc.defineParameter("tempFileSystemSize", 
                    "Temporary Filesystem Size",
                    portal.ParameterType.INTEGER, 
@@ -90,6 +95,6 @@ for i in range(params.nodeCount):
     create_node(name, nodes)
 
 for i, node in enumerate(nodes[0:]):
-    node.addService(rspec.Execute(shell="sh", command="bash /local/repository/start.sh {} {} &".format(params.masterIP, params.bandwidth)))
+    node.addService(rspec.Execute(shell="sh", command="bash /local/repository/start.sh {} {} {} &".format(params.masterIP, params.bandwidth, params.registryIP)))
 
 pc.printRequestRSpec()
