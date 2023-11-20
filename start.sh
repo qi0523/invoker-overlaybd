@@ -122,6 +122,9 @@ setup_invoker $1
 # sudo wondershaper -a eth0 -d $2 -u $2
 
 # sudo agent 30000 &
+
+sudo sed -i "s/4294967296/$4/" $INSTALL_DIR/install/dadip2p.yaml
+
 sudo p2p -c $INSTALL_DIR/install/dadip2p.yaml $3 &
 
 sleep 3
