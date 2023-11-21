@@ -35,7 +35,7 @@ pc.defineParameter("bandwidth",
 pc.defineParameter("disk",
                    "Invoker gc disk",
                    portal.ParameterType.INTEGER,
-                   4,
+                   500,
                    longDescription="Invoker bandwidth.")
 
 pc.defineParameter("nodeCount", 
@@ -101,6 +101,6 @@ for i in range(params.nodeCount):
     create_node(name, nodes)
 
 for i, node in enumerate(nodes[0:]):
-    node.addService(rspec.Execute(shell="sh", command="bash /local/repository/start.sh {} {} {} {} &".format(params.masterIP, params.bandwidth, params.registryIP, params.disk * 1024 * 1024 * 1024)))
+    node.addService(rspec.Execute(shell="sh", command="bash /local/repository/start.sh {} {} {} {} &".format(params.masterIP, params.bandwidth, params.registryIP, params.disk * 1024 * 1024)))
 
 pc.printRequestRSpec()
