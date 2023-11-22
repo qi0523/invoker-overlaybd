@@ -32,6 +32,10 @@ pc.defineParameter("bandwidth",
                    1000000,
                    longDescription="Invoker bandwidth.")
 
+pc.defineParameter("hardware_type",
+                   "Optional physical node type (utah:xl170 |d6515|c6525-25g|c6525-100g  clem: r7525|r650|r6525)",
+                   portal.ParameterType.STRING, "rs620")
+
 pc.defineParameter("disk",
                    "Invoker gc disk",
                    portal.ParameterType.INTEGER,
@@ -81,6 +85,8 @@ def create_node(name, nodes):
   node.cores = params.cores
   # Ask for 2GB of ram
   node.ram   = params.memory
+
+  node.hardware_type = params.hardware_type
 
   node.disk_image = IMAGE
   node.setFailureAction("nonfatal")
