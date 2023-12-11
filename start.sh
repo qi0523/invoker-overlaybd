@@ -15,6 +15,7 @@ sudo hostnamectl set-hostname $HOST_NAME
 sudo sed -i "4a 127.0.0.1 $HOST_NAME" /etc/hosts
 
 ## modify containerd, TODO:
+sudo apt update
 sudo apt install -y apparmor apparmor-utils
 ## cni plugins TODO:
 pushd $INSTALL_DIR/install
