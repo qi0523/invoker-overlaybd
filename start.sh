@@ -120,7 +120,7 @@ coproc nc { nc -l $HOST_ETH0_IP $INVOKER_PORT; }
 
 setup_invoker $1
 
-sudo wondershaper -a eth0 -d $2 -u $2
+# sudo wondershaper -a eth0 -d $2 -u $2
 
 # sudo agent 30000 &
 
