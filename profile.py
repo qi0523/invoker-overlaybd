@@ -56,8 +56,8 @@ pc.defineParameter("lan",  "Put all nodes in a LAN",
                    portal.ParameterType.BOOLEAN, True)
 pc.defineParameter("shared",  "Try to use shared nodes",
                    portal.ParameterType.BOOLEAN, False)
-pc.defineParameter("nobw",  "Disable BW and Shaping",
-                   portal.ParameterType.BOOLEAN, False)
+# pc.defineParameter("nobw",  "Disable BW and Shaping",
+#                    portal.ParameterType.BOOLEAN, False)
 pc.defineParameter("publicips",  "Request Public IPs",
                    portal.ParameterType.BOOLEAN, True)
 pc.defineParameter("phystype",  "Optional physical node type",
@@ -97,14 +97,14 @@ request.setCollocateFactor(params.X)
 if (params.lan):
     lan = request.LAN()
     lan.vlan_tagging = True
-    if params.nobw:
-        lan.trivial_ok = False
-        lan.setNoBandwidthShaping()
-    else:
-        lan.trivial_ok = True
-        lan.bandwidth = params.bandwidth 
-        lan.setForceShaping() 
-        pass
+    # if params.nobw:
+    #     lan.trivial_ok = False
+    #     lan.setNoBandwidthShaping()
+    # else:
+    lan.trivial_ok = True
+    lan.bandwidth = params.bandwidth 
+    lan.setForceShaping() 
+        # pass
     pass
 
 for i in range(1, params.N+1):
