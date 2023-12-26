@@ -7,7 +7,7 @@ USER_GROUP=containernetwork
 MASTER_PORT=3000
 INVOKER_PORT=3001
 INSTALL_DIR=/home/cloudlab-openwhisk
-HOST_ETH0_IP=$(ifconfig eth1 | awk 'NR==2{print $2}')
+HOST_ETH0_IP=$(ifconfig eth0 | awk 'NR==2{print $2}')
 HOST_NAME=$(hostname | awk 'BEGIN{FS="."}{print $1}')
 
 # change hostname
@@ -54,38 +54,14 @@ set_ip_to_master_py(){
 }
 
 wait_join_k8s() {
-    printf "%s: %s\n" "$(date +"%T.%N")" "nc pid is: $nc_PID"
-    while true; do
-        printf "%s: %s\n" "$(date +"%T.%N")" "Waiting for command to join kubernetes cluster, nc pid is $nc_PID"
-        read -r -u${nc[0]} cmd
-        case $cmd in
-            *"kube"*)
-                MY_CMD=$cmd
-                break 
-                ;;
-            *)
-	    	printf "%s: %s\n" "$(date +"%T.%N")" "Read: $cmd"
-                ;;
-        esac
-	if [ -z "$nc_PID" ]
-	then
-	    printf "%s: %s\n" "$(date +"%T.%N")" "Restarting listener via netcat..."
-	    coproc nc { nc -l $1 $SECONDARY_PORT; }
-	fi
-    done
-    MY_CMD=$(echo sudo $MY_CMD | sed 's/\\//')
-
-    printf "%s: %s\n" "$(date +"%T.%N")" "Command to execute is: $MY_CMD"
-
-    # run command to join kubernetes cluster
-    eval $MY_CMD
-    printf "%s: %s\n" "$(date +"%T.%N")" "Done!"
+    sudo kubeadm join 172.17.65.1:6443 --token mnervw.4wbmglaz0r9e1ege \
+	--discovery-token-ca-cert-hash sha256:4f02471b0103277c50033c090e5c8a2cc9996b3b498716e165caa29afbf6e6c7 
 }
 
 setup_invoker() {
     # $1 == master ip
     #1. send host ip to master.
-    set_ip_to_master_py $1
+    # set_ip_to_master_py $1
     #2. wait to join in k8s cluster.
     wait_join_k8s
 
@@ -116,7 +92,7 @@ sudo sed -i "s/REPLACE_ME_WITH_IP/$HOST_ETH0_IP/g" /etc/systemd/system/kubelet.s
 
 # listen INVOKER_PORT
 
-coproc nc { nc -l $HOST_ETH0_IP $INVOKER_PORT; }
+# coproc nc { nc -l $HOST_ETH0_IP $INVOKER_PORT; }
 
 setup_invoker $1
 
@@ -124,9 +100,9 @@ setup_invoker $1
 
 # sudo agent 30000 &
 
-sudo sed -i "s/4294967296/$4/" $INSTALL_DIR/install/dadip2p.yaml
+# sudo sed -i "s/4294967296/$4/" $INSTALL_DIR/install/dadip2p.yaml
 
-sudo p2p -c $INSTALL_DIR/install/dadip2p.yaml $3 &
+sudo p2p -c $INSTALL_DIR/install/dadip2p.yaml &
 
 sleep 3
 
@@ -136,8 +112,6 @@ sudo sed -i "s/MASTERIP/$1/" /etc/overlaybd-snapshotter/config.json
 
 sudo systemctl restart overlaybd-snapshotter
 
-bash /local/repository/registry.sh $2
-
-# sudo nerdctl run -d -p 35000:5000 -v /proj/containernetwork-PG0/registry:/var/lib/registry --restart=always --name registry registry
+sudo nerdctl run -d -p 35000:5000 -v /proj/containernetwork-PG0/registry:/var/lib/registry --restart=always --name registry registry
 
 exit 0
