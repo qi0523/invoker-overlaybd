@@ -8,6 +8,7 @@ Log into your node, use `sudo` to poke around.
 
 import geni.portal as portal
 import geni.rspec.pg as pg
+import geni.rspec.pg as rspec
 import geni.rspec.emulab
 
 #
