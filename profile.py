@@ -102,7 +102,7 @@ if (params.lan):
         lan.setNoBandwidthShaping()
     else:
         lan.trivial_ok = True
-        lan.bandwidth = 500000
+        lan.bandwidth = params.bandwidth 
         lan.setForceShaping() 
         pass
     pass
