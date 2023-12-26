@@ -25,7 +25,7 @@ request = pc.makeRequestRSpec()
 pc.defineParameter("N", "Number of virtual nodes (containers)",
                    portal.ParameterType.INTEGER, 4)
 pc.defineParameter("X", "Number of containers per physical node",
-                   portal.ParameterType.INTEGER, 20)
+                   portal.ParameterType.INTEGER, 16)
 pc.defineParameter("osImage", "Select OS image",
                    portal.ParameterType.IMAGE,
                    imageList[0], imageList,
@@ -46,6 +46,11 @@ pc.defineParameter("bandwidth",
                    portal.ParameterType.INTEGER,
                    500000,
                    longDescription="Invoker bandwidth.")
+
+pc.defineParameter("registryIP", 
+                   "Registry ip address",
+                   portal.ParameterType.STRING, 
+                   "172.17.1.1")
 
 pc.defineParameter("lan",  "Put all nodes in a LAN",
                    portal.ParameterType.BOOLEAN, True)
