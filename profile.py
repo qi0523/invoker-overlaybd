@@ -93,9 +93,9 @@ request.setCollocateFactor(params.X)
 # any antidepressant, every day is a new day. 
 #
 #request.setPackingStrategy("pack")
+lan = request.LAN()
 
 if (params.lan):
-    lan = request.LAN()
     lan.vlan_tagging = True
     # if params.nobw:
     #     lan.trivial_ok = False
