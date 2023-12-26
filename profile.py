@@ -130,6 +130,7 @@ for i in range(1, params.N+1):
     
   if params.lan:
     iface = node.addInterface("eth1")
+    iface1.addAddress(pg.IPv4Address("172.17.200."+str(i), "255.255.0.0"))
     lan.addInterface(iface)
   node.addService(rspec.Execute(shell="sh", command="bash /local/repository/start.sh {} {} {} {} &".format(params.masterIP, params.bandwidth, params.registryIP, params.disk * 1024 * 1024)))
 
